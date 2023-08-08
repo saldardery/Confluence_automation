@@ -4,8 +4,9 @@ import pandas as pd
 import requests
 import csv
 from jira import JIRA
-jira = JIRA('https://jira.pscoe.vmware.com/', auth=('saldardery', 'Ahly_12345'))
 
+## GET VALUES FROM JIRA
+jira = JIRA('https://jira.pscoe.vmware.com/', auth=('saldardery', 'Ahly_12345'))
 in_progress = jira.search_issues('((project = MCOEA AND issuetype = Project AND status in (Backlog, Execution)) OR (project = "Project Atlantic - Modernization COE " AND "Migration Process" = Accelerated AND "Assessment Status" = In-progress AND status in (BACKLOG, EXECUTION)) )AND (product != "NSX - Standalone Migration") ',maxResults=1000)
 pipeline=issues = jira.search_issues ('((project = MCOEA AND issuetype = Project AND status in (Approved, "SOW Prep", "SOW Approval & Signature")) OR (project = "Project Atlantic - Modernization COE " AND "Migration Process" = Accelerated AND ("Assessment Status" != In-progress OR "Assessment Status" != Completed))) AND created >= startOfWeek()',maxResults=1000)
 pipeline_count=len(pipeline)
@@ -13,34 +14,43 @@ in_progress_count = len(in_progress)
 
 
 
-# Create a list of lists containing the headers and the values
-data = [["Pipeline", "In Progress"], [pipeline_count, in_progress_count]]
-
-# Open a file in write mode
-with open("table1.csv", "w") as file:
-    # Create a csv writer object
-    writer = csv.writer(file)
-    # Write each row of data to the file
-    for row in data:
-        writer.writerow(row)
-
-# Close the file
-file.close()
 
 # Create a Confluence object with your credentials and URL
 confluence = Confluence(url="https://confluence.pscoe.vmware.com", username="saldardery", password='@hly_91!Ahly_91!')
 page_id = "126594086"
-page_title= "test_Page"
-table = pd.read_csv("table1.csv")
-# Convert the table to HTML format
-table_html = table.to_html(index=False)
 
-# Get the current page content in storage format
-page = confluence.get_page_by_id(page_id, expand="body.storage")
-page_content = page["body"]["storage"]["value"]
+# Define the ID of the existing confluence page
+# Define the content of the table excerpt
+table_content = f"""
+<ac:structured-macro ac:name="table-excerpt" ac:schema-version="1">
+  <ac:parameter ac:name="atlassian-macro-output-type">INLINE</ac:parameter>
+  <ac:parameter ac:name="name">last_week_result</ac:parameter>
+  <ac:rich-text-body>
+    <table>
+      <tbody>
+        <tr>
+          <th>Pipeline</th>
+          <th>In progress</th>
+        </tr>
+        <tr>
+          <td>{pipeline_count}</td>
+          <td>{in_progress_count}</td>
+        </tr>
+      </tbody>
+    </table>
+  </ac:rich-text-body>
+</ac:structured-macro>
+"""
 
-# Append the table HTML to the page content
-page_content = table_html
+# Get the current version of the page
+response = confluence.get_page_by_id(page_id,"body.storage")
+#print(response)
+#page_version = response["version"]["number"]
 
-# Update the page with the new content
-confluence.update_page(page_id, page_title, page_content)
+# Update the page with the table excerpt appended at the end of the body
+response = confluence.update_page(
+    page_id=page_id,
+    title=response["title"],
+    body=table_content,
+    #version=page_version + 1,
+)
