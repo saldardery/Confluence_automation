@@ -8,7 +8,7 @@ from jira import JIRA
 ## GET VALUES FROM JIRA
 jira = JIRA('https://jira.pscoe.vmware.com/', auth=('saldardery', 'Ahly_12345'))
 in_progress = jira.search_issues('((project = MCOEA AND issuetype = Project AND status in (Backlog, Execution)) OR (project = "Project Atlantic - Modernization COE " AND "Migration Process" = Accelerated AND "Assessment Status" = In-progress AND status in (BACKLOG, EXECUTION)) )AND (product != "NSX - Standalone Migration") ',maxResults=1000)
-pipeline=issues = jira.search_issues ('((project = MCOEA AND issuetype = Project AND status in (Approved, "SOW Prep", "SOW Approval & Signature")) OR (project = "Project Atlantic - Modernization COE " AND "Migration Process" = Accelerated AND ("Assessment Status" != In-progress OR "Assessment Status" != Completed))) AND created >= startOfWeek()',maxResults=1000)
+pipeline=issues = jira.search_issues ('project = MCOE AND issuetype = Project AND Product in (vRA,VCF, "NSX - Standalone migration") AND status in (Approved, Backlog, "SOW Prep", "SOW Approval & Signature") AND key not in ("MCOE-141","MCOE-140")') AND created >= startOfWeek()',maxResults=1000)
 pipeline_count=len(pipeline)
 in_progress_count = len(in_progress)
 
