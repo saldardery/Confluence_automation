@@ -26,7 +26,7 @@ with open("assessment_output.csv", "w", newline="") as csvfile:
     writer.writerow(["pipeline", "in progress"])
     writer.writerow([assessment_pipeline_count, assessment_in_progress_count])
 
-# Create a csv file with the table columns pipeline and in progress
+# Create a Migration csv file with the table columns pipeline and in progress
 with open("migration_output.csv", "w", newline="") as csvfile2:
     writer = csv.writer(csvfile2)
     writer.writerow(["pipeline", "in progress"])
