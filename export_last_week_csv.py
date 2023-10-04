@@ -21,13 +21,13 @@ migration_pipeline_count=len(migration_pipeline)
 migration_in_progress_count = len(migration_in_progress)
 
 # Create a Assessment csv file with the table columns pipeline and in progress
-with open("assessment_output.csv", "w", newline="") as csvfile:
+with open("C:\\Users\\Administrator.NEXUS\\Desktop\\Confluence\\assessment_output.csv", "w", newline="") as csvfile:
     writer = csv.writer(csvfile)
     writer.writerow(["pipeline", "in progress"])
     writer.writerow([assessment_pipeline_count, assessment_in_progress_count])
 
-# Create a Migration csv file with the table columns pipeline and in progress
-with open("migration_output.csv", "w", newline="") as csvfile2:
+# Create a csv file with the table columns pipeline and in progress
+with open("C:\\Users\\Administrator.NEXUS\\Desktop\\Confluence\\migration_output.csv", "w", newline="") as csvfile2:
     writer = csv.writer(csvfile2)
     writer.writerow(["pipeline", "in progress"])
     writer.writerow([migration_pipeline_count, migration_in_progress_count])
