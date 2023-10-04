@@ -6,7 +6,7 @@ import csv
 from jira import JIRA
 
 # Open the assessment_output.csv file in read mode
-with open("assessment_output.csv", "r") as file:
+with open("C:\\Users\\Administrator.NEXUS\\Desktop\\Confluence\\assessment_output.csv", "r") as file:
     # Create a csv reader object
     reader = csv.reader(file)
     # Skip the header row
@@ -19,7 +19,7 @@ with open("assessment_output.csv", "r") as file:
     # Print the pipeline variable
 
 # Open the assessment_output.csv file in read mode
-with open("migration_output.csv", "r") as file:
+with open("C:\\Users\\Administrator.NEXUS\\Desktop\\Confluence\\migration_output.csv", "r") as file:
     # Create a csv reader object
     reader = csv.reader(file)
     # Skip the header row
