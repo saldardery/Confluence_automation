@@ -6,9 +6,9 @@ import csv
 from jira import JIRA
 
 # Open the assessment_output.csv file in read mode
-with open("C:\\Users\\Administrator.NEXUS\\Desktop\\Confluence\\assessment_output.csv", "r") as file:
+with open("C:\\Users\\Administrator.NEXUS\\Desktop\\Confluence\\assessment_output.csv", "r") as file1:
     # Create a csv reader object
-    reader = csv.reader(file)
+    reader = csv.reader(file1)
     # Skip the header row
     next(reader)
     # Read the first data row
@@ -19,9 +19,9 @@ with open("C:\\Users\\Administrator.NEXUS\\Desktop\\Confluence\\assessment_outpu
     # Print the pipeline variable
 
 # Open the assessment_output.csv file in read mode
-with open("C:\\Users\\Administrator.NEXUS\\Desktop\\Confluence\\migration_output.csv", "r") as file:
+with open("C:\\Users\\Administrator.NEXUS\\Desktop\\Confluence\\migration_output.csv", "r") as file2:
     # Create a csv reader object
-    reader = csv.reader(file)
+    reader = csv.reader(file2)
     # Skip the header row
     next(reader)
     # Read the first data row
@@ -33,12 +33,12 @@ with open("C:\\Users\\Administrator.NEXUS\\Desktop\\Confluence\\migration_output
 
 
 # Create a Assessment Confluence page with your credentials and URL and with table excerpt
-confluence = Confluence(url="https://confluence.pscoe.vmware.com", username="saldardery", password='@hly_91!Ahly_91!')
-page_id = "126594086"
+assessment_confluence = Confluence(url="https://confluence.pscoe.vmware.com", username="saldardery", password='@hly_91!Ahly_91!')
+assessment_page_id = "126594086"
 
 # Define the ID of the existing confluence page
 # Define the content of the table excerpt
-table_content = f"""
+assessment_table_content = f"""
 <ac:structured-macro ac:name="table-excerpt" ac:schema-version="1">
   <ac:parameter ac:name="atlassian-macro-output-type">INLINE</ac:parameter>
   <ac:parameter ac:name="name">assessment_last_week_result</ac:parameter>
@@ -60,12 +60,12 @@ table_content = f"""
 """
 
 # Create a Migration Confluence page with your credentials and URL and with table excerpt
-confluence = Confluence(url="https://confluence.pscoe.vmware.com", username="saldardery", password='@hly_91!Ahly_91!')
-page_id = "126594084"
+migration_confluence = Confluence(url="https://confluence.pscoe.vmware.com", username="saldardery", password='@hly_91!Ahly_91!')
+migration_page_id = "126594084"
 
 # Define the ID of the existing confluence page
 # Define the content of the table excerpt
-table_content = f"""
+migration_table_content = f"""
 <ac:structured-macro ac:name="table-excerpt" ac:schema-version="1">
   <ac:parameter ac:name="atlassian-macro-output-type">INLINE</ac:parameter>
   <ac:parameter ac:name="name">migration_last_week_result</ac:parameter>
@@ -87,15 +87,24 @@ table_content = f"""
 """
 
 # Get the current version of the page
-response = confluence.get_page_by_id(page_id,"body.storage")
+assessment_response = assessment_confluence.get_page_by_id(assessment_page_id,"body.storage")
+migration_response = migration_confluence.get_page_by_id(migration_page_id,"body.storage")
 #print(response)
 #page_version = response["version"]["number"]
 
 # Update the page with the table excerpt appended at the end of the body
-response = confluence.update_page(
-    page_id=page_id,
-    title=response["title"],
-    body=table_content,
+assessment_response = assessment_confluence.update_page(
+    page_id=assessment_page_id,
+    title=assessment_response["title"],
+    body=assessment_table_content,
     #version=page_version + 1,
 )
+migration_response = migration_confluence.update_page(
+    page_id=migration_page_id,
+    title=migration_response["title"],
+    body=migration_table_content,
+    #version=page_version + 1,
+)
+
+
 
