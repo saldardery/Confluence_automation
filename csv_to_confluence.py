@@ -1,3 +1,4 @@
+
 from atlassian import Confluence
 from bs4 import BeautifulSoup
 import pandas as pd
@@ -6,7 +7,7 @@ import csv
 from jira import JIRA
 
 # Open the assessment_output.csv file in read mode
-with open("C:\\Users\\Administrator.NEXUS\\Desktop\\Confluence\\assessment_output.csv", "r") as file1:
+with open('C:\\Users\\PowerBI\\OneDrive - VMware, Inc\\Desktop\\Confluence\\assessment_output.csv', "r") as file1:
     # Create a csv reader object
     reader = csv.reader(file1)
     # Skip the header row
@@ -19,7 +20,7 @@ with open("C:\\Users\\Administrator.NEXUS\\Desktop\\Confluence\\assessment_outpu
     # Print the pipeline variable
 
 # Open the assessment_output.csv file in read mode
-with open("C:\\Users\\Administrator.NEXUS\\Desktop\\Confluence\\migration_output.csv", "r") as file2:
+with open('C:\\Users\\PowerBI\\OneDrive - VMware, Inc\\Desktop\\Confluence\\migration_output.csv', "r") as file2:
     # Create a csv reader object
     reader = csv.reader(file2)
     # Skip the header row
@@ -105,6 +106,3 @@ migration_response = migration_confluence.update_page(
     body=migration_table_content,
     #version=page_version + 1,
 )
-
-
-
