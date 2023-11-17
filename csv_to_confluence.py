@@ -47,12 +47,14 @@ assessment_table_content = f"""
     <table>
       <tbody>
         <tr>
+          <th>Week</th>
           <th>Pipeline</th>
-          <th>In progress</th>
+          <th>In Progress</th>
         </tr>
         <tr>
-          <td>{assessment_pipeline_count}</td>
-          <td>{assessment_in_progress_count}</td>
+          <td style="text-align: center;">Last Week</td>
+          <td style="text-align: center;">{assessment_pipeline_count}</td>
+          <td style="text-align: center;">{assessment_in_progress_count}</td>
         </tr>
       </tbody>
     </table>
@@ -74,12 +76,14 @@ migration_table_content = f"""
     <table>
       <tbody>
         <tr>
+          <th>Week</th>
           <th>Pipeline</th>
-          <th>In progress</th>
+          <th>In Progress</th>
         </tr>
         <tr>
-          <td>{migration_pipeline_count}</td>
-          <td>{migration_in_progress_count}</td>
+          <td style="text-align: center;">Last Week</td>
+          <td style="text-align: center;">{migration_pipeline_count}</td>
+          <td style="text-align: center;">{migration_in_progress_count}</td>
         </tr>
       </tbody>
     </table>
